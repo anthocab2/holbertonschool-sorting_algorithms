@@ -1,6 +1,6 @@
 #include "sort.h"
 
-/* swap - swaps two integers in an array */
+/* swap - Swaps two elements in an array */
 void swap(int *a, int *b)
 {
 int temp;
@@ -9,7 +9,7 @@ temp = *a;
 *b = temp;
 }
 
-/* lomuto_partition - partitions the array using Lomuto scheme */
+/* lomuto_partition - Partitions the array using Lomuto scheme */
 size_t lomuto_partition(int *array, size_t low, size_t high, size_t size)
 {
 size_t i, j;
@@ -32,10 +32,10 @@ if (i != high)
 swap(&array[i], &array[high]);
 print_array(array, size);
 }
-return i;
+return (i);
 }
 
-/* quick_sort_recursive - recursively sorts using Lomuto partition */
+/* quick_sort_recursive - Recursively sorts the array */
 void quick_sort_recursive(int *array, size_t low, size_t high, size_t size)
 {
 size_t pivot;
@@ -49,7 +49,7 @@ quick_sort_recursive(array, pivot + 1, high, size);
 }
 }
 
-/* quick_sort - entry point to sort an array of integers */
+/* quick_sort - Sorts an array of integers in ascending order */
 void quick_sort(int *array, size_t size)
 {
 if (!array || size < 2)

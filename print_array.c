@@ -1,23 +1,16 @@
 #include <stdio.h>
 #include "sort.h"
 
-/**
-* print_array - prints an array of integers
-* @array: array to print
-* @size: number of elements
-*/
+/* print_array - Prints an array of integers */
 void print_array(const int *array, size_t size)
 {
-size_t i;
-
-if (!array)
-return;
-
-for (i = 0; i < size; i++)
+size_t i = 0;
+while (array && i < size)
 {
 if (i > 0)
 printf(", ");
 printf("%d", array[i]);
+i++;
 }
 printf("\n");
 }

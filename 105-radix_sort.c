@@ -1,0 +1,82 @@
+#include <stdlib.h>
+#include "sort.h"
+
+/**
+ * get_max - gets the maximum number in array
+ */
+int get_max(int *array, size_t size)
+{
+size_t i;
+int max;
+
+max = array[0];
+
+for (i = 1; i < size; i++)
+{
+if (array[i] > max)
+max = array[i];
+}
+return (max);
+}
+
+/**
+ * counting_sort_radix - counting sort by digit
+ */
+void counting_sort_radix(int *array, size_t size, int exp)
+{
+int *output;
+int count[10];
+size_t i;
+int idx;
+
+output = malloc(sizeof(int) * size);
+if (!output)
+return;
+
+for (i = 0; i < 10; i++)
+count[i] = 0;
+
+/* Count occurrences */
+for (i = 0; i < size; i++)
+count[(array[i] / exp) % 10]++;
+
+/* Prefix sum */
+for (i = 1; i < 10; i++)
+count[i] += count[i - 1];
+
+/* Build output (stable) */
+for (i = size; i > 0; i--)
+{
+idx = (array[i - 1] / exp) % 10;
+output[count[idx] - 1] = array[i - 1];
+count[idx]--;
+}
+
+/* Copy back */
+for (i = 0; i < size; i++)
+array[i] = output[i];
+
+free(output);
+}
+
+/**
+ * radix_sort - sorts array using LSD radix sort
+ * @array: array to sort
+ * @size: size of array
+ */
+void radix_sort(int *array, size_t size)
+{
+int max;
+int exp;
+
+if (!array || size < 2)
+return;
+
+max = get_max(array, size);
+
+for (exp = 1; max / exp > 0; exp *= 10)
+{
+counting_sort_radix(array, size, exp);
+print_array(array, size);
+}
+}
